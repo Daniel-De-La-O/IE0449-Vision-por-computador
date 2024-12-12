@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1508878787 source:/home/est/Desktop/visionPorComputador_Prog_Ref_No1/main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+
+1625953652 source:/home/est/Desktop/II programado _I-2021/visionPorComputador_Prog_Ref_No1/main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+

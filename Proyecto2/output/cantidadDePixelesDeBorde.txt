@@ -1,0 +1,2 @@
+
+Cantidad de píxeles clasificados como píxeles de borde en la imagen de bordes: 3461

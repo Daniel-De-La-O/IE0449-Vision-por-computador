@@ -1,0 +1,68 @@
+Matriz de rotacion del objeto con respecto a la cámara en el instante de tiempo k
+R[0]=0.969846
+R[1]=-0.158083
+R[2]=0.185494
+R[3]=0.171010
+R[4]=0.983688
+R[5]=-0.055793
+R[6]=-0.173648
+R[7]=0.085832
+R[8]=0.981060
+Matriz de rotacion de la cámara con respecto al mundo en el instante de tiempo k
+R3[0]=0.962250
+R3[1]=0.006285
+R3[2]=0.272094
+R3[3]=0.084186
+R3[4]=0.943832
+R3[5]=-0.319521
+R3[6]=-0.258819
+R3[7]=0.330366
+R3[8]=0.907673
+Matriz de rotacion del objeto con respecto a la cámara en el instante de tiempo k+1
+R5[0]=0.962250
+R5[1]=-0.041059
+R5[2]=0.269052
+R5[3]=0.084186
+R5[4]=0.984977
+R5[5]=-0.150773
+R5[6]=-0.258819
+R5[7]=0.167731
+R5[8]=0.951251
+
+Posición del punto con respecto al sistema de coordenadas local de la cámara en el instante de tiempo k.
+Hokcx=42.087904cm
+Hokcy=70.204615cm
+Hokcz=108.878178cm
+Posición bidimensional del punto con respecto al sistema de coordenadas local del plano de la cámara en el instante de tiempo k.
+huk=0.309248cm
+hvk=0.515840cm
+La posición bidimensional del punto con respecto al sistema de coordenadas local de la imagen en el instante de tiempo k.
+cik=725.000000 píxeles
+rik=937.000000 píxeles
+Posición del punto con respecto al sistema de coordenadas del mundo en el instante de tiempo k.
+Hokmx=110.565406cm
+Hokmy=85.015654cm
+Hokmz=201.125896cm
+Posición del punto con respecto al sistema de coordenadas local de la cámara en el instante de tiempo k+1.
+Ho2cX=64.522932cm
+Ho2cY=76.156638cm
+Ho2cZ=132.031585cm
+Posición bidimensional del punto con respecto al sistema de coordenadas local del plano de la cámara en el instante de tiempo k+1.
+huk2=0.390955cm
+hvk2=0.461445cm
+La posición bidimensional del punto con respecto al sistema de coordenadas local de la imagen en el instante de tiempo k+1.
+cik2=833.000000 píxeles
+rik2=863.000000 píxeles
+Los 6 parámetros que describen la pose del objeto con respecto al sistema de coordenadas de la cámara en el instante de tiempo k+1.
+Gok2cx=40.000000cm
+Gok2cy=55.000000cm
+Gok2cz=100.000000cm
+Rok2cx=18.175621 grados
+Rok2cy=22.799902 grados
+Rok2cz=17.438758 grados
+Vector bidimensional que describe el desplazamiento del punto sobre el plano de la cámara, entre los instantes de tiempo k y k+1, con respecto al sistema de coordenadas local del plano de la cámara.
+duk=0.081707cm
+dvk=-0.054395cm
+Vector bidimensional que describe el desplazamiento del punto sobre el plano de la cámara, entre los instantes de tiempo k y k+1, con respecto al sistema de coordenadas local del plano de la imágen.
+dck=107.000000 píxeles
+drk=-74.000000 píxeles

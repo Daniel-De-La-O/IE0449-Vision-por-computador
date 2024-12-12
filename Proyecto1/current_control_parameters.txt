@@ -1,0 +1,34 @@
+Datos de entrada
+
+Gckmx es 40.0
+Gckmy es 50.0
+Gckmz es 90.0
+Rckmx es 20.0
+Rckmy es 15.0
+Rckmz es 5.0
+
+GokcX es 25.0
+GokcY es 45.0
+GokcZ es 75.0
+RokcX es 5.0
+RokcY es 10.0
+RokcZ es 10.0
+
+Hokor es 15.0
+Hokos es 25.0
+Hokot es 35.0
+
+DTo2cX es 15.0
+DTo2cY es 10.0
+DTo2cZ es 25.0
+DRo2cX es 10.0
+DRo2cY es 15.0
+DRo2cZ es 5.0
+
+f es 0.8
+Nfu es 640
+Nfv es 480
+Ncu es 659
+Ncv es 480
+Du es 0.00074
+Dv es 0.00074
