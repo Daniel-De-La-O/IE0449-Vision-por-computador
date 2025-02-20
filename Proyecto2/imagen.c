@@ -36,9 +36,9 @@
 #include <opencv2/highgui/highgui.hpp>
 
 //Se incluyen los siguientes prototipos de funciones
-void geoDisplayInWindowIntensityImage(const unsigned char *pIntensityImage, char windowName[256]);
-void geoCopyTheRGBImageDataFromTheOpencvImageStructureToOurpInputImageStructure();
-void geoFunctionToHandlePublishedImage(const sensor_msgs::ImageConstPtr& msg);
+void danDisplayInWindowIntensityImage(const unsigned char *pIntensityImage, char windowName[256]);
+void danCopyTheRGBImageDataFromTheOpencvImageStructureToOurpInputImageStructure();
+void danFunctionToHandlePublishedImage(const sensor_msgs::ImageConstPtr& msg);
 
 //Se definen las siguientes variables globales
 image_transport::Subscriber sub_ourImageTopic_;
@@ -262,7 +262,7 @@ int main()
     //readRGBImageFromBMPFile(p_parametros->pathAndInputImageFileName);
 
     //Insertar codigo en esta funcion
-    //geoInsertYourCodeHere();
+    //danInsertYourCodeHere();
 
     //POR:
 
@@ -278,8 +278,8 @@ int main()
     //se recibiran las imagenes capturadas por la camara usb de su
     //laptop. Se define un buffer de entrada de máximo 1 imágenes
     sub_ourImageTopic_ = it_.subscribe("/usb_cam/image_raw", 1, 
-                       geoFunctionToHandlePublishedImage);
-    //La función geoFunctionToHandlePublishedImage se ejecutara cada vez 
+                       danFunctionToHandlePublishedImage);
+    //La función danFunctionToHandlePublishedImage se ejecutara cada vez 
     //que un mensaje se reciba a través del tópico "/usb_cam/image_raw".
 
     //Creando ventanas OpenCV para desplegar imagenes
@@ -428,9 +428,9 @@ void danInsertYourCodeHere()
     //AGREGAR:
 
     //Desplegando imagenes en las ventanas OpenCV
-    geoDisplayInWindowIntensityImage(pInputImage->pintensity, windowName1);
-    geoDisplayInWindowIntensityImage(pInputImage->pdrawnLinealSegmentOnIntensity, windowName2);
-    geoDisplayInWindowIntensityImage(pInputImage->pdrawnCircleOnIntensity, windowName3);
+    danDisplayInWindowIntensityImage(pInputImage->pintensity, windowName1);
+    danDisplayInWindowIntensityImage(pInputImage->pdrawnLinealSegmentOnIntensity, windowName2);
+    danDisplayInWindowIntensityImage(pInputImage->pdrawnCircleOnIntensity, windowName3);
     cvWaitKey(30); //para que se desplieguen de una vez
 
     //*******************************************
@@ -1380,7 +1380,7 @@ int SaveRGBImageIn_BMP_file(unsigned char *prgb, char *filename)
 
 //Esta función se ejecutará automáticamente cada vez que un mensaje sea recibido 
 //a través del tópico "/usb_cam/image_raw".
-void geoFunctionToHandlePublishedImage(const sensor_msgs::ImageConstPtr& msg)
+void danFunctionToHandlePublishedImage(const sensor_msgs::ImageConstPtr& msg)
   {
     //Extrayendo la imagen rgb del mensaje recibido
     try
@@ -1407,7 +1407,7 @@ void geoFunctionToHandlePublishedImage(const sensor_msgs::ImageConstPtr& msg)
 
     //Extrayendo la imagen rgb recibida de la estructura OpenCV y
     //copiando su contenido a nuestra estructura global "pInputImage".
-    geoCopyTheRGBImageDataFromTheOpencvImageStructureToOurpInputImageStructure();
+    danCopyTheRGBImageDataFromTheOpencvImageStructureToOurpInputImageStructure();
     //El puntero a la imagen rgb recibida se puede acceder desde
     //nuestra estructura como sigue:
     //pInputImage->prgb
@@ -1416,7 +1416,7 @@ void geoFunctionToHandlePublishedImage(const sensor_msgs::ImageConstPtr& msg)
     //*********************************************
     //*********************************************
     //*********************************************
-    geoInsertYourCodeHere();
+    danInsertYourCodeHere();
     //*********************************************
     //*********************************************
     //*********************************************
@@ -1425,7 +1425,7 @@ void geoFunctionToHandlePublishedImage(const sensor_msgs::ImageConstPtr& msg)
     contadorDeImagenesRecibidas++;
 }
 
-void geoCopyTheRGBImageDataFromTheOpencvImageStructureToOurpInputImageStructure()
+void danCopyTheRGBImageDataFromTheOpencvImageStructureToOurpInputImageStructure()
 {
     unsigned char *ptr, *ptempRgbImage, *pintensity, *prgb;
     int i,j, jj, width, height;
@@ -1498,7 +1498,7 @@ void geoCopyTheRGBImageDataFromTheOpencvImageStructureToOurpInputImageStructure(
 
 }
 
-void geoDisplayInWindowIntensityImage(const unsigned char *pIntensityImage, char windowName[256])
+void danDisplayInWindowIntensityImage(const unsigned char *pIntensityImage, char windowName[256])
 {
 	unsigned char *ptr, *ptempImage;
 	int i,j, jj;
