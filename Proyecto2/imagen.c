@@ -15,6 +15,48 @@
 //salida, y los parametros para dibujar el segmento lineal y el circulo se
 //obtienen de un archivo de parametros de control.
 
+
+/*
+//Primer paso para utilizar la cámara USB
+//***************COMIENZO PASO (1)***********
+//*******************************************
+//*********De codeBlocks a ROS***************
+//*******************************************
+
+//Se incluyen los siguientes headers para poder hacer uso
+//de funciones de ROS en nuestro programa
+#include <ros/ros.h>
+#include <image_transport/image_transport.h>
+#include <cv_bridge/cv_bridge.h>
+#include <sensor_msgs/image_encodings.h>
+
+//Se incluyo el siguiente header para poder hacer uso de 
+//funciones de OpenCV
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
+
+//Se incluyen los siguientes prototipos de funciones
+void geoDisplayInWindowIntensityImage(const unsigned char *pIntensityImage, char windowName[256]);
+void geoCopyTheRGBImageDataFromTheOpencvImageStructureToOurpInputImageStructure();
+void geoFunctionToHandlePublishedImage(const sensor_msgs::ImageConstPtr& msg);
+
+//Se definen las siguientes variables globales
+image_transport::Subscriber sub_ourImageTopic_;
+cv_bridge::CvImagePtr cv_ptr;
+cv_bridge::CvImagePtr cv_ptr_display;
+namespace enc = sensor_msgs::image_encodings;
+int contadorDeImagenesRecibidas=0;
+char windowName0[256];
+char windowName1[256];
+char windowName2[256];
+char windowName3[256];
+*/
+
+//*******************************************
+//*********De codeBlocks a ROS***************
+//*******************************************
+//***************FIN PASO (1)****************
+
 //Se incluyó el siguiente header de la biblioteca
 //estanda de C para operaciones de entrada y salida
 #include <stdio.h>
@@ -116,6 +158,27 @@ int numeroDeDatosLeidos=0;
 
 #define PI 3.141592652
 
+/*
+//Segundo paso para utilizar la cámara USB
+//***************COMIENZO PASO (2)***********
+//*******************************************
+//*********De codeBlocks a ROS***************
+//*******************************************
+
+//CAMBIAR:
+
+//int main()
+
+//POR:
+
+int main(int argc, char** argv) 
+
+//*******************************************
+//*********De codeBlocks a ROS***************
+//*******************************************
+//***************FIN PASO (2)****************
+*/
+
 //Inicio de programa principal
 int main()
 {
@@ -186,6 +249,80 @@ int main()
     //Insertar codigo en esta funcion
     danInsertYourCodeHere();
 
+    /*
+    //Tercer paso para utilizar la cámara USB
+    //***************COMIENZO PASO (3)***********
+    //*******************************************
+    //*********De codeBlocks a ROS***************
+    //*******************************************
+
+    //CAMBIAR:
+
+    //Leyendo la imagen RGB de archivo en formato BMP
+    //readRGBImageFromBMPFile(p_parametros->pathAndInputImageFileName);
+
+    //Insertar codigo en esta funcion
+    //geoInsertYourCodeHere();
+
+    //POR:
+
+    //Levantando del nodo ROS llamado "my_node_2".  
+    ros::init(argc, argv, "my_node_2"); 
+    ros::NodeHandle nh_;
+
+    //Dandole al nodo la capacidad de recepcion de 
+    //mensajes con imagenes
+    image_transport::ImageTransport it_(nh_);
+
+    //Subscripción al topico "/usb_cam/image_raw", a traves del cual
+    //se recibiran las imagenes capturadas por la camara usb de su
+    //laptop. Se define un buffer de entrada de máximo 1 imágenes
+    sub_ourImageTopic_ = it_.subscribe("/usb_cam/image_raw", 1, 
+                       geoFunctionToHandlePublishedImage);
+    //La función geoFunctionToHandlePublishedImage se ejecutara cada vez 
+    //que un mensaje se reciba a través del tópico "/usb_cam/image_raw".
+
+    //Creando ventanas OpenCV para desplegar imagenes
+    strcpy(windowName0,"Imagen RGB recibida en mensaje");
+    strcpy(windowName1,"Intensidad");
+    strcpy(windowName2,"Segmento lineal");
+    strcpy(windowName3,"Circulo");
+    cv::namedWindow(windowName0);
+    cv::moveWindow(windowName0, 0, 0); 
+    cv::namedWindow(windowName1);
+    cv::moveWindow(windowName1, 300, 0);
+    cv::namedWindow(windowName2);
+    cv::moveWindow(windowName2, 0, 200);
+    cv::namedWindow(windowName3);
+    cv:: moveWindow(windowName3, 300, 200);
+    cvWaitKey(30); //Esta funcion ademas de hacer esperar al  
+    //programa 30 ms, tambien fuerza a OpenCv a crear 
+    //inmediatamente las ventanas
+
+    //El valor de X en la función ros::Rate loop_rate(X) 
+    //indica el número de ciclos "while (ros::ok())" que ROS 
+    //deberá realizar por segundo aproximadamente. Esta función 
+    //trabaja en forma conjunta con la función loop_rate.sleep()
+    ros::Rate loop_rate(20);
+
+    //ros::ok() es cero cuando ctrl+c es presionado en el teclado.
+    //Utilice esa combinación de teclas para salirse del programa. 
+    while (ros::ok()) { 
+
+         //Dentro de la funcion "ros::spinOnce()" ROS ejecuta
+         //sus funciones. Los mensajes se atenderán solamente 
+         //dentro de "ros::spinOnce()".
+         ros::spinOnce();
+
+         loop_rate.sleep();
+    }
+
+    //*******************************************
+    //*********De codeBlocks a ROS***************
+    //*******************************************
+    //***************FIN PASO (3)****************
+    */
+    
     //Liberando memoria de los contenedores e imagenes
     free(pInputImage->prgb);
     free(pInputImage->pintensity);
@@ -281,7 +418,26 @@ void danInsertYourCodeHere()
     strcpy(pathAndFileName,"output/imagenDeBordes.bmp");
     SaveIntensityImageIn_BMP_file(pInputImage->pborderImage_uc, pathAndFileName);
 
+    /*
+    //Cuarto paso para utilizar la cámara USB
+    //***************COMIENZO PASO (4)***********
+    //*******************************************
+    //*********De codeBlocks a ROS***************
+    //*******************************************
 
+    //AGREGAR:
+
+    //Desplegando imagenes en las ventanas OpenCV
+    geoDisplayInWindowIntensityImage(pInputImage->pintensity, windowName1);
+    geoDisplayInWindowIntensityImage(pInputImage->pdrawnLinealSegmentOnIntensity, windowName2);
+    geoDisplayInWindowIntensityImage(pInputImage->pdrawnCircleOnIntensity, windowName3);
+    cvWaitKey(30); //para que se desplieguen de una vez
+
+    //*******************************************
+    //*********De codeBlocks a ROS***************
+    //*******************************************
+    //***************FIN PASO (4)****************
+    */
 
 
 }
@@ -1212,3 +1368,185 @@ int SaveRGBImageIn_BMP_file(unsigned char *prgb, char *filename)
 
     return(1);
 }
+
+/*
+//Quinto paso para utilizar cámara USB
+//***************COMIENZO PASO (5)***********
+//*******************************************
+//*********De codeBlocks a ROS***************
+//*******************************************
+
+//AGREGAR:
+
+//Esta función se ejecutará automáticamente cada vez que un mensaje sea recibido 
+//a través del tópico "/usb_cam/image_raw".
+void geoFunctionToHandlePublishedImage(const sensor_msgs::ImageConstPtr& msg)
+  {
+    //Extrayendo la imagen rgb del mensaje recibido
+    try
+    {
+      //cv_prt es un puntero a una estructura ROS que 
+      //contiene un puntero a otra estructura OpenCV que 
+      //a su vez contiene un puntero a la imagen rgb 
+      //recibida. 
+      cv_ptr = cv_bridge::toCvCopy(msg, enc::BGR8); 
+      
+      //cv_prt_display es una copia de cv_prt. Esta copia 
+      //se usará únicamente para visualización 
+      cv_ptr_display = cv_bridge::toCvCopy(msg, enc::BGR8);
+    }
+    catch (cv_bridge::Exception& e)
+    {
+      ROS_ERROR("cv_bridge exception: %s", e.what());
+      return;
+    }
+
+    //Desplegando la imagen rgb recibida
+    cv::imshow(windowName0, cv_ptr_display->image);
+    cvWaitKey(30);
+
+    //Extrayendo la imagen rgb recibida de la estructura OpenCV y
+    //copiando su contenido a nuestra estructura global "pInputImage".
+    geoCopyTheRGBImageDataFromTheOpencvImageStructureToOurpInputImageStructure();
+    //El puntero a la imagen rgb recibida se puede acceder desde
+    //nuestra estructura como sigue:
+    //pInputImage->prgb
+
+    //*********************************************
+    //*********************************************
+    //*********************************************
+    //*********************************************
+    geoInsertYourCodeHere();
+    //*********************************************
+    //*********************************************
+    //*********************************************
+    //*********************************************
+    
+    contadorDeImagenesRecibidas++;
+}
+
+void geoCopyTheRGBImageDataFromTheOpencvImageStructureToOurpInputImageStructure()
+{
+    unsigned char *ptr, *ptempRgbImage, *pintensity, *prgb;
+    int i,j, jj, width, height;
+
+    //Getting image dimentions
+    width=cv_ptr->image.cols;
+    height = cv_ptr->image.rows;
+
+    if (width!=pInputImage->width || height!=pInputImage->height) {
+       printf("\n");
+       printf("**************************************************************\n");
+       printf("** Error, el ancho (width) y el alto (height) de las imagenes\n");
+       printf("** capturadas por la camara es %d, %d, respectivamente. \n", width, height);
+       printf("** \n");
+       printf("** Cambiar valores en el archivo de paramatros de control\n");
+       printf("**************************************************************\n");
+       printf("\n");
+       exit(0);
+    }
+
+    pInputImage->width=width; //hight is extracted from the messages
+    pInputImage->height=height; //width is extracted from the messages
+
+    //Renaming pointer names to simplify the code
+    prgb= pInputImage->prgb;
+    ptempRgbImage = (unsigned char*)malloc(sizeof(unsigned char)*(unsigned int)(width*height*3));
+    for (i=0;i<width*height*3;i++) ptempRgbImage[i]=0;
+    pintensity=pInputImage->pintensity;
+
+    //Converting opencv image form BGR to RGB
+    cv::cvtColor(cv_ptr->image ,cv_ptr->image, CV_BGR2RGB); 
+
+    //Extracting RGB image from opencv image structure
+    for (i=0;i<height; i++) {
+        ptr=(unsigned char *)(cv_ptr->image.data+i*cv_ptr->image.step);
+        for (j=0;j<width; j++) {
+	     prgb[i*width*3+j*3]=ptr[3*j];
+	     prgb[i*width*3+j*3+1]=ptr[3*j+1];
+	     prgb[i*width*3+j*3+2]=ptr[3*j+2];
+        }
+    }
+
+    //Changing the image coordinate from the upper left corner 
+    //to the lower left corner
+    jj=0;
+    for (j=height-1;j>=0;j--) {
+       for (i=0;i<width;i++) {
+            ptempRgbImage[jj*3*width+i*3]=prgb[j*3*width+i*3];
+            ptempRgbImage[jj*3*width+i*3+1]=prgb[j*3*width+i*3+1];
+            ptempRgbImage[jj*3*width+i*3+2]=prgb[j*3*width+i*3+2];
+       }
+       jj++;
+    }
+    for (i=0;i<width*height*3;i++) prgb[i]=ptempRgbImage[i];
+
+    //Getting the intensity image
+    for (j=0;j<height; j++) { 
+       for (i=0;i<width; i++) { 
+            pintensity[j*width+i] = 
+                        (unsigned char)(0.299*(double)prgb[3*j*width+3*i]+
+	                                0.587*(double)prgb[3*j*width+3*i+1]+
+                                        0.114*(double)prgb[3*j*width+3*i+2]);
+       }
+    }
+
+    //Converting back opencv image from RGB to BGR
+    cv::cvtColor(cv_ptr->image ,cv_ptr->image, CV_RGB2BGR); 
+
+    free(ptempRgbImage);
+
+}
+
+void geoDisplayInWindowIntensityImage(const unsigned char *pIntensityImage, char windowName[256])
+{
+	unsigned char *ptr, *ptempImage;
+	int i,j, jj;
+        int width, height;
+
+        //Renaming to facilitate code
+        width= pInputImage->width;
+        height=pInputImage->height;
+
+        //Allocating temporal rgb image
+	ptempImage = (unsigned char*)malloc(sizeof(unsigned char)*(unsigned int)(width*height*3)); 
+	for (i=0;i<width*height*3;i++) ptempImage[i]=0; 
+	//Copying the intensity value of each pixel in each of the rgb values of a temporal rgb 
+        //image and changing the image coordinate system from the lower left corner to the 
+        //upper left corner
+	for (i=0;i<width*height*3;i++) ptempImage[i]=0;
+	jj=0;
+	for (j=height-1;j>=0;j--) {
+	  for (i=0;i<width;i++) {
+		  ///*R*/ //ptempImage[jj*3*width+i*3]=  /*R*/ pIntensityImage[j*width+i];
+		  ///*G*/ ptempImage[jj*3*width+i*3+1]=/*G*/ pIntensityImage[j*width+i];
+		  ///*B*/ ptempImage[jj*3*width+i*3+2]=/*B*/ pIntensityImage[j*width+i];
+	  //}
+	  //jj++;
+	//}
+/*
+        //Copying the rgb data of the temporal rgb image to the rgb data of the
+        //opencv image structure
+	for (i=0;i<height; i++) {
+	   ptr=(unsigned char *)(cv_ptr_display->image.data+i*cv_ptr_display->image.step); 
+	   for (j=0;j<width; j++) {
+			  ptr[3*j]=ptempImage[i*width*3+j*3];
+			  ptr[3*j+1]=ptempImage[i*width*3+j*3+1];
+			  ptr[3*j+2]=ptempImage[i*width*3+j*3+2];
+	   }
+	}
+
+	//Inverting the rgb image data to bgr image data
+	cv::cvtColor(cv_ptr_display->image ,cv_ptr_display->image, CV_RGB2BGR);
+
+        //Displaying image
+        cv::imshow(windowName, cv_ptr_display->image);
+        cvWaitKey(30);
+
+        //Freeing allocated memory
+	free(ptempImage);
+}*/
+//*******************************************
+//*********De codeBlocks a ROS***************
+//*******************************************
+//***************FIN PASO (5)****************
